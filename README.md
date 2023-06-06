@@ -1,12 +1,12 @@
 # Olang
 
-A WASI frontend written in Zig.
+A WASI frontend written in Zig (inspired by Zig).
 
 See [./olang.spec](./olang.spec) for the syntax specification.
 
 A showcase of the syntax:
 
-```
+```zig
 @print = comptime {
     const stdout = @import("std").out
     const write = stdout.stream.write
