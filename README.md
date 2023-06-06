@@ -31,9 +31,9 @@ fn log(value:[]u8) !void {
 pub fn main(args:[]u8) !void {
 
     // this is a comment
-    const newUser = User {
+    const user = User {
 
     };
-    try log(@string("hello {}", []))
+    try log(@string("hello {}", [user.email]))
 }
 ```
