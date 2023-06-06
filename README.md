@@ -11,16 +11,16 @@ A showcase of the syntax:
     const stdout = @import("std").out
     const write = stdout.stream.write
 
-    return fn _(value) use(write) {
-        write(value)
+    return fn _(value) use(write) !void {
+        try write(value)
     }
 }
 
-fn log(value []char) void {
-    @print([...value, ..."\n"])
+fn log(value []char) !void {
+    try @print([...value, ..."\n"])
 }
 
-pub fn main(args []char) void {
-    log("hello world")
+pub fn main(args []char) !void {
+    try log("hello world")
 }
 ```
