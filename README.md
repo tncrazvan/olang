@@ -18,8 +18,8 @@ const @print = comptime {
     const write = stdout.stream.write
 
     return |value:[]u8| !void {
-        for(value) |char| {
-            try write(char)
+        for(value) |byte| {
+            try write(byte)
         }
     }
 };
