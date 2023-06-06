@@ -11,7 +11,7 @@ A showcase of the syntax:
     const stdout = @import("std").out
     const write = stdout.stream.write
 
-    return fn _(value) !void {
+    return |value []char| !void {
         try write(value)
     }
 }
