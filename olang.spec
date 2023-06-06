@@ -8,7 +8,6 @@ square_l := [
 square_r := ]
 angle_l := <
 angle_r := >
-quote := "
 boolean := true | false
 
 string := string $lsquare $number $rsquare
@@ -37,10 +36,10 @@ public_function := pub $function
 
 call := $name $group
 
-addition_member = $number | $call
-subtraction_member = $number | $call
-division_member = $number | $call
-multiplication_member = $number | $call
+addition_member := $number | $call
+subtraction_member := $number | $call
+division_member := $number | $call
+multiplication_member := $number | $call
 
 addition := $addition_member + $addition_member
 subtraction := $subtraction_member - $subtraction_member
@@ -53,7 +52,5 @@ expression = $call | $name | $addition | $subtraction | $division | $multiplicat
 not := not $block | not $expression
 
 structure := struct $block
-
-comment := /* {?} */
 
 comptime := comptime
