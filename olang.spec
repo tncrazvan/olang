@@ -24,8 +24,8 @@ property := $property_separator $name | $property_separator $property
 
 boolean_member := $boolean or $boolean | $boolean and $boolean | $boolean | $round_l $boolean_member $round_r
 
-constant := const $name = | const $macro_name = comptime $block
-variable := var $name =
+constant := const $name : $name = | const $macro_name = comptime $block
+variable := var $name : $name =
 
 parameters := $name : $name | $parameters , | $parameters
 arguments := $name = $expression | $arguments , | $arguments

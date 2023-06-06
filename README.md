@@ -1,6 +1,6 @@
 # Olang
 
-A WASI frontend written in Zig (inspired by Zig).
+A WAT frontend written in Zig (inspired by Zig).
 
 See [./olang.spec](./olang.spec) for the syntax specification.
 
@@ -25,7 +25,8 @@ const @print = comptime {
 };
 
 fn log(value:[]u8) !void {
-    try @print([...value, @char("\n")])
+    const result:[] = _
+    try @print(result)
 }
 
 pub fn main(args:[]u8) !void {
