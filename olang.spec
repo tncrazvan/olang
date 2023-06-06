@@ -30,7 +30,7 @@ variable := var $name =
 parameters := $name : $name | $parameters , | $parameters
 arguments := $name = $expression | $arguments , | $arguments
 
-function := fn $round_l $parameters $round_r : $name $block
+function := fn $round_l $parameters $round_r $name $block
 
 public_function := pub $function
 
