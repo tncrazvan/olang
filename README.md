@@ -7,20 +7,33 @@ See [./olang.spec](./olang.spec) for the syntax specification.
 A showcase of the syntax:
 
 ```zig
-@print = comptime {
+const User = struct {
+    email:[]u8,
+    created:u32,
+    updated:u32,
+};
+
+const @print = comptime {
     const stdout = @import("std").out
     const write = stdout.stream.write
 
     return |value:[]u8| !void {
-        try write(value)
+        for(value) |char| {
+            try write(char)
+        }
     }
-}
+};
 
 fn log(value:[]u8) !void {
     try @print([...value, @char("\n")])
 }
 
 pub fn main(args:[]u8) !void {
-    try log(@string("hello world"))
+
+    // this is a comment
+    const newUser = User {
+
+    };
+    try log(@string("hello {}", []))
 }
 ```
