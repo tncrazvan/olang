@@ -13,14 +13,12 @@ const User = struct {
     updated:u32,
 };
 
-const @print = comptime {
+fn print() !void {
     const stdout = @import("std").out
     const write = stdout.stream.write
 
-    return |value:[]u8| !void {
-        for(value) |byte| {
-            try write(byte)
-        }
+    for(value) |byte| {
+        try write(byte)
     }
 };
 
