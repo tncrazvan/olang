@@ -20,9 +20,15 @@ macro_name := @ $name
 
 property_separator := .
 
+$or = or
+
+$and = and
+
+$not = not
+
 property := $property_separator $name | $property_separator $property
 
-boolean_member := $boolean or $boolean | $boolean and $boolean | $boolean | $round_l $boolean_member $round_r
+boolean_member := $boolean $or $boolean | $boolean $and $boolean | $boolean | $round_l $boolean_member $round_r
 
 constant := const $name : $name = | const $macro_name = comptime $block
 variable := var $name : $name =
@@ -48,8 +54,6 @@ subtraction := $subtraction_member * $subtraction_member
 multiplication := $multiplication_member * $multiplication_member
 
 expression = $call | $name | $addition | $subtraction | $division | $multiplication | $u8 | $boolean_member
-
-not := not $block | not $expression
 
 structure := struct $block
 

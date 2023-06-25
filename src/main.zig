@@ -1,9 +1,9 @@
 const std = @import("std");
 const expect = std.testing.expect;
 const equals = std.mem.eql;
-const nextMacroName = @import("./lib/next-macro-name.zig").nextMacroName;
+const nextBooleanMember = @import("./lib/next-boolean-member.zig").nextBooleanMember;
 
 pub fn main() !void {
-    var name = try nextMacroName("@my_var");
-    try expect(equals(u8, name.value, "my_var"));
+    var member = try nextBooleanMember("true and true");
+    try expect(equals(u8, member.left, "true"));
 }

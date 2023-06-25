@@ -16,19 +16,19 @@ pub fn nextProperty(payload: []const u8) !Property {
     };
 }
 
-test "property (1)" {
+test "next property (1)" {
     const property = try nextProperty(".myprop");
     try expect(equals(u8, property.value, "myprop"));
     try expect(equals(u8, property.next, ""));
 }
 
-test "property (2)" {
+test "next property (2)" {
     const property = try nextProperty(".myprop =");
     try expect(equals(u8, property.value, "myprop"));
     try expect(equals(u8, property.next, " ="));
 }
 
-test "property (3)" {
+test "next property (3)" {
     const property = nextProperty(" .myprop") catch Property{ .value = "", .next = "" };
     try expect(equals(u8, property.value, ""));
     try expect(equals(u8, property.next, ""));
