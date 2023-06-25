@@ -3,21 +3,21 @@ const expect = std.testing.expect;
 const equals = std.mem.eql;
 
 pub fn isCurlyRight(payload: []const u8) bool {
-    return std.mem.eql(u8, payload, "}");
+    return equals(u8, payload, "}");
 }
 
-test "is curly right 1" {
+test "is curly right (1)" {
     try expect(isCurlyRight("}"));
 }
-test "is curly right 2" {
+test "is curly right (2)" {
     try expect(!isCurlyRight(" }"));
 }
-test "is curly right 3" {
+test "is curly right (3)" {
     try expect(!isCurlyRight("} "));
 }
-test "is curly right 4" {
+test "is curly right (4)" {
     try expect(!isCurlyRight("d"));
 }
-test "is curly right 5" {
+test "is curly right (5)" {
     try expect(!isCurlyRight(""));
 }

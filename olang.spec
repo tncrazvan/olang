@@ -47,7 +47,7 @@ division := $division_member / $division_member
 subtraction := $subtraction_member * $subtraction_member
 multiplication := $multiplication_member * $multiplication_member
 
-expression = $call | $name | $addition | $subtraction | $division | $multiplication | $u8 | $string | $boolean_member
+expression = $call | $name | $addition | $subtraction | $division | $multiplication | $u8 | $boolean_member
 
 not := not $block | not $expression
 

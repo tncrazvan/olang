@@ -1,14 +1,12 @@
 const std = @import("std");
 const expect = std.testing.expect;
 const equals = std.mem.eql;
-const charToSlice = @import("./string.zig").charToSlice;
-
-const Reading = enum { Start, Content, End };
+const charToSlice = @import("./utilities/string.zig").charToSlice;
 
 const String = struct { payload: []const u8 };
 
 /// Note that strings are represented as: string[N]
-pub fn asString(payload: []const u8) !String {
+pub fn referToString(payload: []const u8) !String {
     if (payload.len < 9) {
         return error.Invalid;
     }
@@ -41,32 +39,32 @@ pub fn asString(payload: []const u8) !String {
     return error.Invalid;
 }
 
-test "as-string-success" {
-    const result = try asString("string[4]");
+test "as-string (1)" {
+    const result = try referToString("string[4]");
     try expect(equals(u8, result.payload, "4"));
 }
 
-test "as-string-failure-1" {
-    const result = asString("string[4]]") catch String{ .payload = "" };
+test "as-string (2)" {
+    const result = referToString("string[4]]") catch String{ .payload = "" };
     try expect(equals(u8, result.payload, ""));
 }
 
-test "as-string-failure-2" {
-    const result = asString("string 4") catch String{ .payload = "" };
+test "as-string (3)" {
+    const result = referToString("string 4") catch String{ .payload = "" };
     try expect(equals(u8, result.payload, ""));
 }
 
-test "as-string-failure-3" {
-    const result = asString("string[4 ]") catch String{ .payload = "" };
+test "as-string (4)" {
+    const result = referToString("string[4 ]") catch String{ .payload = "" };
     try expect(equals(u8, result.payload, ""));
 }
 
-test "as-string-failure-4" {
-    const result = asString("string[ 4]") catch String{ .payload = "" };
+test "as-string (5)" {
+    const result = referToString("string[ 4]") catch String{ .payload = "" };
     try expect(equals(u8, result.payload, ""));
 }
 
-test "as-string-failure-5" {
-    const result = asString("string[44]") catch String{ .payload = "" };
+test "as-string (6)" {
+    const result = referToString("string[44]") catch String{ .payload = "" };
     try expect(equals(u8, result.payload, "44"));
 }

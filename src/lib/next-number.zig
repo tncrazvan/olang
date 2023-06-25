@@ -13,7 +13,7 @@ pub fn asNumber(payload: []const u8) !Number {
     return Number{ .payload = payload };
 }
 
-test "as-number" {
+test "as-number (1)" {
     const result = try asNumber("12345");
     try expect(equals(u8, result.payload, "12345"));
 }
