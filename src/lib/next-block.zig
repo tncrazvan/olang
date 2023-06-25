@@ -43,19 +43,12 @@ pub fn nextBlock(payload: []const u8) !Block {
     return if (delta != 0) {
         return error.Invalid;
     } else {
-        const startValue = 1;
-        const endValue = end - 1;
-        const value = if (end == 1)
-            ""
-        else
-            // FIXME: this slice is too large for some reason
-            payload[startValue..endValue];
+        const value = if (end < 1) "" else payload[1..end];
 
-        const startNext = end + 1;
         const next = if (end == payload.len - 2)
             ""
         else
-            payload[startNext..];
+            payload[end + 1 ..];
 
         return Block{ .value = value, .next = next };
     };
@@ -65,4 +58,14 @@ test "next block (1)" {
     const block = try nextBlock("{}");
     try expect(equals(u8, block.value, ""));
     try expect(equals(u8, block.next, ""));
+}
+
+test "next block (2)" {
+    const block = try nextBlock("{ this is content} qwerqwrweqqwe");
+    try expect(equals(u8, block.value, " this is content"));
+    try expect(equals(u8, block.next, " qwerqwrweqqwe"));
+}
+
+test "next block (3)" {
+    // TODO: test for failures
 }
