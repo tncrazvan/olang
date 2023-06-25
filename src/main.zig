@@ -1,6 +1,9 @@
 const std = @import("std");
 const expect = std.testing.expect;
 const equals = std.mem.eql;
-// const nextTry = @import("./lib/next-try.zig").nextTry;
+const nextMacroName = @import("./lib/next-macro-name.zig").nextMacroName;
 
-pub fn main() !void {}
+pub fn main() !void {
+    var name = try nextMacroName("@my_var");
+    try expect(equals(u8, name.value, "my_var"));
+}
