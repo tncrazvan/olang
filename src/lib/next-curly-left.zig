@@ -1,23 +1,30 @@
 const std = @import("std");
 const expect = std.testing.expect;
 const equals = std.mem.eql;
+const startsWith = std.mem.startsWith;
 
-pub fn isCurlyLeft(payload: []const u8) bool {
-    return equals(u8, payload, "{");
+pub fn nextCurlyLeft(payload: []const u8) ![]const u8 {
+    if (payload.len == 0) {
+        return error.Invalid;
+    }
+    return if (payload[0] == '{')
+        payload[1..]
+    else
+        error.Invalid;
 }
 
-test "is curly left (1)" {
-    try expect(isCurlyLeft("{"));
+test "next curly left (1)" {
+    try expect(equals(u8, try nextCurlyLeft("{"), ""));
 }
-test "is curly left (2)" {
-    try expect(!isCurlyLeft(" {"));
+
+test "next curly left (2)" {
+    try expect(equals(u8, try nextCurlyLeft("{ "), " "));
 }
-test "is curly left (3)" {
-    try expect(!isCurlyLeft("{ "));
+
+test "next curly left (3)" {
+    try expect(equals(u8, nextCurlyLeft(" {") catch "", ""));
 }
-test "is curly left (4)" {
-    try expect(!isCurlyLeft("d"));
-}
-test "is curly left (5)" {
-    try expect(!isCurlyLeft(""));
+
+test "next curly left (4)" {
+    try expect(equals(u8, nextCurlyLeft("s") catch "", ""));
 }

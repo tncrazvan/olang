@@ -1,29 +1,24 @@
 const std = @import("std");
 const expect = std.testing.expect;
 const equals = std.mem.eql;
+const startsWith = std.mem.startsWith;
 
-const Boolean = struct { payload: []const u8 };
-
-pub fn isTry(payload: []const u8) bool {
-    return (equals(u8, payload, "try"));
+pub fn nextTry(payload: []const u8) ![]const u8 {
+    return if (startsWith(u8, payload, "try"))
+        return payload[3..]
+    else
+        error.Invalid;
 }
 
-test "is-try (1)" {
-    try expect(isTry("try"));
+test "next try (1)" {
+    try expect(equals(u8, try nextTry("try"), ""));
 }
 
-test "is-try (2)" {
-    try expect(!isTry(" try"));
+test "next try (2)" {
+    try expect(equals(u8, try nextTry("tryasd"), "asd"));
 }
 
-test "is-try (3)" {
-    try expect(!isTry("try "));
-}
-
-test "is-try (4)" {
-    try expect(!isTry(" try "));
-}
-
-test "is-try (5)" {
-    try expect(!isTry("qwerty"));
+test "next try (3)" {
+    const result = nextTry(" tryqwerty") catch "";
+    try expect(equals(u8, result, ""));
 }

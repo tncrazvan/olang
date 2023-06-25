@@ -1,23 +1,30 @@
 const std = @import("std");
 const expect = std.testing.expect;
 const equals = std.mem.eql;
+const startsWith = std.mem.startsWith;
 
-pub fn isSquareLeft(payload: []const u8) bool {
-    return equals(u8, payload, "[");
+pub fn nextSquareLeft(payload: []const u8) ![]const u8 {
+    if (payload.len == 0) {
+        return error.Invalid;
+    }
+    return if (payload[0] == '[')
+        payload[1..]
+    else
+        error.Invalid;
 }
 
-test "is square left (1)" {
-    try expect(isSquareLeft("["));
+test "next square left (1)" {
+    try expect(equals(u8, try nextSquareLeft("["), ""));
 }
-test "is square left (2)" {
-    try expect(!isSquareLeft(" ["));
+
+test "next square left (2)" {
+    try expect(equals(u8, try nextSquareLeft("[ "), " "));
 }
-test "is square left (3)" {
-    try expect(!isSquareLeft("] "));
+
+test "next square left (3)" {
+    try expect(equals(u8, nextSquareLeft(" [") catch "", ""));
 }
-test "is square left (4)" {
-    try expect(!isSquareLeft("d"));
-}
-test "is square left (5)" {
-    try expect(!isSquareLeft(""));
+
+test "next square left (4)" {
+    try expect(equals(u8, nextSquareLeft("s") catch "", ""));
 }

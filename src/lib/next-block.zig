@@ -67,5 +67,7 @@ test "next block (2)" {
 }
 
 test "next block (3)" {
-    // TODO: test for failures
+    const block = nextBlock("{") catch Block{ .next = "", .value = "" };
+    try expect(equals(u8, block.value, ""));
+    try expect(equals(u8, block.next, ""));
 }

@@ -1,23 +1,30 @@
 const std = @import("std");
 const expect = std.testing.expect;
 const equals = std.mem.eql;
+const startsWith = std.mem.startsWith;
 
-pub fn isRoundRight(payload: []const u8) bool {
-    return equals(u8, payload, ")");
+pub fn nextRoundRight(payload: []const u8) ![]const u8 {
+    if (payload.len == 0) {
+        return error.Invalid;
+    }
+    return if (payload[0] == ')')
+        payload[1..]
+    else
+        error.Invalid;
 }
 
-test "is round right (1)" {
-    try expect(isRoundRight(")"));
+test "next round right (1)" {
+    try expect(equals(u8, try nextRoundRight(")"), ""));
 }
-test "is round right (2)" {
-    try expect(!isRoundRight(" )"));
+
+test "next round right (2)" {
+    try expect(equals(u8, try nextRoundRight(") "), " "));
 }
-test "is round right (3)" {
-    try expect(!isRoundRight(") "));
+
+test "next round right (3)" {
+    try expect(equals(u8, nextRoundRight(" )") catch "", ""));
 }
-test "is round right (4)" {
-    try expect(!isRoundRight("d"));
-}
-test "is round right (5)" {
-    try expect(!isRoundRight(""));
+
+test "next round right (4)" {
+    try expect(equals(u8, nextRoundRight("s") catch "", ""));
 }

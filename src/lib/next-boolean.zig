@@ -5,7 +5,7 @@ const startsWith = std.mem.startsWith;
 
 const Boolean = struct { value: []const u8, next: []const u8 };
 
-pub fn next(payload: []const u8) !Boolean {
+pub fn nextBoolean(payload: []const u8) !Boolean {
     return if (startsWith(u8, payload, "true")) {
         return Boolean{ .value = payload[0..4], .next = payload[4..] };
     } else if (startsWith(u8, payload, "false")) {
@@ -16,13 +16,13 @@ pub fn next(payload: []const u8) !Boolean {
 }
 
 test "next boolean (1)" {
-    const result = try next("true");
+    const result = try nextBoolean("true");
     try expect(equals(u8, result.value, "true"));
     try expect(equals(u8, result.next, ""));
 }
 
 test "next boolean (2)" {
-    const result = try next("false");
+    const result = try nextBoolean("false");
     try expect(equals(u8, result.value, "false"));
     try expect(equals(u8, result.next, ""));
 }
